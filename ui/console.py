@@ -44,24 +44,23 @@ class console:
                 errors.append(error)
                 
 
-                if pos == -1:
-                    try:
-                        self.__validator.validateGen(gen)
-                    except ValueError as error:
-                        errors.append(error)
 
-                    try:
-                        self.__validator.validateData(data)
-                    except ValueError as error:
-                        errors.append(error)
-                    
-                else:
-                    try:
-                        self.__serv.modifElem(pos, gen, data)
-                        ok = True
-                    except ValueError as error:
-                        errors.append(error)
-                
+                try:
+                    self.__validator.validateGen(gen)
+                except ValueError as error:
+                    errors.append(error)
+
+                try:
+                    self.__validator.validateData(data)
+                except ValueError as error:
+                    errors.append(error)
+                        
+                try:
+                    self.__serv.modifElem(pos, gen, data)
+                    ok = True
+                except:
+                    pass
+            
             if not ok:
                 print()
                 for err in errors:
@@ -72,6 +71,7 @@ class console:
                     ok = True
         
     def protocolCreare(self):
+        
         pass
     
     def commands(self):
