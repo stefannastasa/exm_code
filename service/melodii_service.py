@@ -1,8 +1,9 @@
+from email import generator
 from multiprocessing.sharedctypes import Value
 from repository.melodii_repo import melodii_repo
 from entities.melodie import melodie
 from validators.melodii_validator import validator
-
+from generators.generator import generator
 
 class melodii_service:
     def __init__(self, testing = False):
@@ -11,6 +12,7 @@ class melodii_service:
         else:
             self.__repo = melodii_repo()
         self.__validator = validator()
+        self.__generator = generator()
     
     def getAll(self):
         return self.__repo.getAll()
@@ -91,6 +93,20 @@ class melodii_service:
             ent_lst[index].setGen(gen)
             ent_lst[index].setData(data)
             self.__repo.uploadList(ent_lst)
+            
+    def genMelod(self, titluri, autori, numar):
+        to_be_added = self.__generator.generator_melodie(titluri, autori, numar)
+        
+        counter = 0
+        for ent in to_be_added:
+            try:
+                self.__repo.uploadOneElem(ent)
+                counter+=1
+            except ValueError:
+                pass
+        
+        return counter
+        
     
         
         

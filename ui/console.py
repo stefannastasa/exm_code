@@ -43,23 +43,21 @@ class console:
             except ValueError as error:
                 errors.append(error)
                 
+            try:
+                self.__validator.validateGen(gen)
+            except ValueError as error:
+                errors.append(error)
 
-
-                try:
-                    self.__validator.validateGen(gen)
-                except ValueError as error:
-                    errors.append(error)
-
-                try:
-                    self.__validator.validateData(data)
-                except ValueError as error:
-                    errors.append(error)
-                        
-                try:
-                    self.__serv.modifElem(pos, gen, data)
-                    ok = True
-                except:
-                    pass
+            try:
+                self.__validator.validateData(data)
+            except ValueError as error:
+                errors.append(error)
+                    
+            try:
+                self.__serv.modifElem(pos, gen, data)
+                ok = True
+            except:
+                pass
             
             if not ok:
                 print()
@@ -71,12 +69,22 @@ class console:
                     ok = True
         
     def protocolCreare(self):
+        print('-'*10)
+        numar = input("Introdu numarul de melodii de generat: ")
+        numar = int(numar)
         
-        pass
+        titluri = input("Introdu o lista de titluri pentru melodii (separate prin virgula): ")
+        titluri = titluri.split(',')
+        autori = input("Introdu o lista de autori pentru melodii (separati prin virgula): ")
+        autori = autori.split(',')
+        
+        count = self.__serv.genMelod(titluri, autori, numar)
+        print("S-au generat {} melodii.".format(count))
+            
     
     def commands(self):
         return [("Modifica melodie", self.protocolModif ),
                 ("Afiseaza toate melodiile", self.protocolAfisare),
-                ("Creeaza melodii", self.protocolCreare)
+                ("Creeaza melodii", self.protocolCreare ),
                 ("Exit",exit)]
     

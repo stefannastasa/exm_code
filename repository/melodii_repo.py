@@ -46,8 +46,12 @@ class melodii_repo:
         Args:
             ent (melodie): the element to be added
         """
-        with open(self.__file, 'a')as f:
-            f.write(ent.fileFormat())
+        ent_lst = self.getAll()
+        if ent not in ent_lst:
+            with open(self.__file, 'a') as f:
+                f.write(ent.fileFormat())
+        else:
+            raise ValueError("Melodie duplicat.")
     
     def getAll(self):
         return self.__load__all__from__file()
