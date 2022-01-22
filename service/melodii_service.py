@@ -133,7 +133,11 @@ class melodii_service:
         return counter
         
     def exportMelodii(self, file_to_export):
-        
+        """Exporta melodii catre fisierul transmis ca parametru
+
+        Args:
+            file_to_export (str): fisierul transmis ca parametru
+        """
         ent_lst = self.getAll()
         ent_lst = sorted(ent_lst, key = key_sort)
         

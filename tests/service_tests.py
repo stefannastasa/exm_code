@@ -15,8 +15,6 @@ class serviceTests(TestCase):
         for ent in ent_lst:
             self.__serv.addMelodie(ent.getTitlu(), ent.getArtist(), ent.getGen(), ent.getData())
         
-        
-        
     def tearDown(self):
         os.remove('test')
         
@@ -64,3 +62,9 @@ class serviceTests(TestCase):
         
         self.assertEqual(ent_lst[pos].getGen(),"Rock")
         self.assertEqual(ent_lst[pos].getData(),"27/12/2002")
+
+    def test_genMelod(self):
+        nr = self.__serv.genMelod(["asdf","asdf",'asdf'],["oooo","oooo","oo"], 10)
+        ent_lst = self.__serv.getAll()
+
+        self.assertEqual(len(ent_lst), 3 + nr)

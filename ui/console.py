@@ -85,6 +85,7 @@ class console:
         autori = autori.split(',')
         
         count = self.__serv.genMelod(titluri, autori, numar)
+        print()
         print("S-au generat {} melodii.".format(count))
             
     def protocolExport(self):

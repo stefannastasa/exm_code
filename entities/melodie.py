@@ -1,5 +1,4 @@
 
-
 class melodie:
     
     def __init__(self, titlu, artist, gen, data):
@@ -40,4 +39,6 @@ class melodie:
         return "{};{};{};{};\n".format(self.__titlu, self.__artist, self.__gen, self.__data)
     
     def __str__(self):
+        """Formatul de afisare in export-uri + consola
+        """
         return "{},{},{},{}\n".format(self.__titlu, self.__artist, self.__data, self.__gen, )

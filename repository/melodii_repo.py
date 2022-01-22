@@ -5,6 +5,13 @@ class melodii_repo:
     def __init__(self, filepath = 'resources/melodii'):
         self.__file = filepath
         
+        try:
+            f = open(self.__file, 'r')
+        except OSError:
+            f = open(self.__file, 'w')
+            
+        f.close()
+        
     def __load__all__from__file(self):
         """Incarca toate melodiile din fisier.
 
