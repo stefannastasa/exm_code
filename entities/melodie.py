@@ -38,3 +38,6 @@ class melodie:
         """Formatul de memorare in fisier al entitatii
         """
         return "{};{};{};{};\n".format(self.__titlu, self.__artist, self.__gen, self.__data)
+    
+    def __str__(self):
+        return "{},{},{},{}\n".format(self.__titlu, self.__artist, self.__data, self.__gen, )

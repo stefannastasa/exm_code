@@ -4,6 +4,21 @@ from repository.melodii_repo import melodii_repo
 from entities.melodie import melodie
 from validators.melodii_validator import validator
 from generators.generator import generator
+from datetime import date
+
+
+def convert_data(data):
+    data = data.split('/')
+    data = date(int(data[2]), int(data[1]), int(data[0]))
+    
+    return data
+
+def key_sort(ent:melodie):
+    data  = ent.getData()
+    data = convert_data(data)
+    
+    return data
+
 
 class melodii_service:
     def __init__(self, testing = False):
@@ -33,8 +48,8 @@ class melodii_service:
         """
         try:
             self.__validator.validate(gen, data)
-            if len(titlu)==0 and len(artist)==0:
-                raise ValueError("Lungime artist si titlu vida")
+            if len(titlu)==0 or len(artist)==0:
+                raise ValueError("Lungime artist/titlu vida")
         except ValueError as error:
             raise error
         
@@ -95,6 +110,16 @@ class melodii_service:
             self.__repo.uploadList(ent_lst)
             
     def genMelod(self, titluri, autori, numar):
+        """Genereaza si adauga melodii in fisier
+
+        Args:
+            titluri (list): lista de titluri pentru melodii
+            autori (list): lista de autori pentru melodii
+            numar (int): numarul de melodii de generat
+
+        Returns:
+            int: numarul de melodii diferite adaugate in fisier
+        """
         to_be_added = self.__generator.generator_melodie(titluri, autori, numar)
         
         counter = 0
@@ -106,6 +131,15 @@ class melodii_service:
                 pass
         
         return counter
+        
+    def exportMelodii(self, file_to_export):
+        
+        ent_lst = self.getAll()
+        ent_lst = sorted(ent_lst, key = key_sort)
+        
+        with open(file_to_export, 'w') as f:
+            for ent in ent_lst:
+                f.write(str(ent))
         
     
         

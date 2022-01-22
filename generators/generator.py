@@ -6,6 +6,16 @@ class generator:
     genuri = ["Rock","Pop","Jazz","Altele"]
     
     def generator_melodie(self, titluri:list, autori:list, numar:int):
+        """Functie care genereaza melodii dupa listele date
+
+        Args:
+            titluri (list): lista de titluri pentru melodiile generate
+            autori (list): lista de autori pentru melodiile generate
+            numar (int): numarul total de melodii generate
+
+        Returns:
+            list: lista de melodii generate
+        """
         res = []
         for i in range(numar):
             

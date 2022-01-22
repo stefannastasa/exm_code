@@ -14,11 +14,17 @@ class console:
                 print("{}.{}".format(i+1, com[0]))
             
             selection = input("Introdu numarul comenzii alese:")
-            try:
-                comm[int(selection)-1][1]()
-            except ValueError as error:
-                print(error)
+            if int(selection)-1 >= len(comm):
+                print("Incearca din nou...")
+                print()
+            else:
+                try:
+                    comm[int(selection)-1][1]()
+                except ValueError as error:
+                    print(error)
                 
+                print('-'*10)
+                    
     def protocolAfisare(self):
         print('-'*10)
         ent_lst = self.__serv.getAll()
@@ -81,10 +87,15 @@ class console:
         count = self.__serv.genMelod(titluri, autori, numar)
         print("S-au generat {} melodii.".format(count))
             
+    def protocolExport(self):
+        filepath = input("Introdu numele fisierului de exportat: ")
+        self.__serv.exportMelodii(filepath)
+        
     
     def commands(self):
-        return [("Modifica melodie", self.protocolModif ),
-                ("Afiseaza toate melodiile", self.protocolAfisare),
-                ("Creeaza melodii", self.protocolCreare ),
+        return [("Modifica melodie.", self.protocolModif ),
+                ("Afiseaza toate melodiile.", self.protocolAfisare),
+                ("Creeaza melodii.", self.protocolCreare ),
+                ("Export.", self.protocolExport),
                 ("Exit",exit)]
     

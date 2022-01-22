@@ -1,0 +1,8 @@
+entities
+generators
+repository
+service
+tests
+ui
+validators
+venv
